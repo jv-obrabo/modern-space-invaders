@@ -1,10 +1,9 @@
 function randomBetween(min, max) {
-  return Math.random() * (max - min + 1) + min; // Corrigido o parêntese extra
+  return Math.random() * (max - min + 1) + min;
 }
 
-function createScoreLabel(score = 106, object) {
-  // Corrigido o parêntese extra e o nome da variável "scorelabel" para "scoreLabel"
-  const scoreLabel = document.createElement("label"); // Corrigido o nome da variável de "scorelabel" para "scoreLabel"
+function createScoreLabel({ score = 100, object }) {
+  const scoreLabel = document.createElement("label");
   scoreLabel.innerHTML = score;
   scoreLabel.style.position = "absolute";
   scoreLabel.style.color = "white";
@@ -22,14 +21,32 @@ function createScoreLabel(score = 106, object) {
       document.querySelector("#parentDiv").removeChild(scoreLabel);
     }
   });
+
+  function rectangularCollision({ rectangle1, rectangle2 }) {
+    return (
+      rectangle1.position.y + rectangle1.height >= rectangle2.position.y &&
+      rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
+      rectangle1.position.x <= rectangle2.position.x + rectangle2.width
+    );
+  }
+
+  function createParticles({ object, color, fades }) {
+    for (let i = 0; i < 15; i++) {
+      createParticles.push(
+        new Particle({
+          position: {
+            x: object.position.x + object.width / 2,
+            x: object.position.x + object.width / 2
+          },
+          velocity: {
+            x: (math.random() - 0.5) * 2,
+            y: (math.random() - 0.5) * 2
+          },
+          radius: Math.random() * 3,
+          color: color || "#BAAODE",
+          fades
+        })
+      );
+    }
+  }
 }
-
-function rectangularCollission({ rectangle1, rectangle2 }) {
-  // Corrigido o nome da variável de "rectangularCollission" para "rectangularCollision"
-  return (
-    rectangle1.position.y + rectangle1.height >= rectangle2.position.y &&
-    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
-    rectangle1.position.x <= rectangle2.position.x + rectangle2.width
-  );
- }
-
