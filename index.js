@@ -71,20 +71,40 @@ function init() {
   };
 
   score = 0;
-  for(let i = 0;  i < 100; i++) {
+  for (let i = 0; i < 100; i++) {
     particles.push(
-        new particles({
+      new particles({
         position: {
-            x: Math.floor(Math.random() * canvas.width),
-            y: Math.floor(Math.random() * canvas.height)
+          x: Math.floor(Math.random() * canvas.width),
+          y: Math.floor(Math.random() * canvas.height)
         },
         velocity: {
-            x:0,
-            y:0.3
+          x: 0,
+          y: 0.3
         },
-        radius:Math.random() * 2,
-        color:"white"
-        } )
+        radius: Math.random() * 2,
+        color: "white"
+      })
     );
-  };
+  }
+}
+
+function endGame() {
+  Audio.gameOver.play();
+
+  setTimeout(() => {
+    player.opacity = 0;
+    gameOver = true;
+  }, 0);
+
+  setTimeout(() => {
+    game.active = false;
+    document.querySelector("restartScreen").style.display = "flex";
+  }, 2000);
+
+  createParticles({
+    Object: player,
+    color: "white",
+    fades: true
+  });
 }
