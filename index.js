@@ -109,19 +109,39 @@ function endGame() {
   });
 }
 
-function animate( ) {
-    if (!game.active) return;
-    requestAnimationFrame(animate);
+function animate() {
+  if (!game.active) return;
+  requestAnimationFrame(animate);
 
-    const msNow =  window.performance.now();
-    const elapsed = msNow - msPrev;
+  const msNow = window.performance.now();
+  const elapsed = msNow - msPrev;
 
-    if (elapsed > fpsInterval) {
+  if (elapsed > fpsInterval) {
+    msPrev = msNow - (elapsed % fpsInterval);
 
-        msPrev = msNow - (elapsed % fpsInterval);
-        
-       c.fillStyle = "black";    
-       c.fillRect(0, 0, canvas.width, canvas.height);
-        
-     }
+    c.fillStyle = "black";
+    c.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  for (let i = powerUps.length - 1; i >= 0; i--) {
+    const powerUp = powerUps[i];
+
+    if (powerUp.position.x - powerUp.radius >= canvas.width)
+      powerUps.splice(i, 1);
+    else powerUp.update();
+  }
+
+  if (frames % 500 === 0) {
+    powerUps.push(
+      new PowerUp({
+        position: {
+          x: 0,
+          y: Math.random() * 300 + 15
+        },
+        velocity: {
+          x: 5,
+          y: 0
+        }
+      })
+    );
+  }
 }
