@@ -1,19 +1,20 @@
-class invaderProjectile {
-  constructor({ positiion, velocity }) {
-    this.positiion = positiion;
+class InvaderProjectile {
+  constructor({ position, velocity }) {
+    this.position = position;
     this.velocity = velocity;
+
     this.width = 3;
     this.height = 10;
   }
 
   draw() {
     c.fillStyle = "white";
-    c.fillRect(this.positiion.x, this.positiion.y, this.width, this.height);
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
   update() {
     this.draw();
-    this.positiion.x += this.velocity.x;
-    this.positiion.y += this.velocity.y;
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
   }
 }
